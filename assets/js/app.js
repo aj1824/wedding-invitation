@@ -65,9 +65,11 @@
     I.fx.shower(28);
     setTimeout(() => I.fx.glints(innerWidth / 2, innerHeight * 0.5, 40, 2), 1200);
   }, 0.4);
+  const scrollHint = C.scrollHint();
   I.intro({
     onDone() {
       I.$('#invite').classList.add('go');
+      scrollHint.start(1800);
       I.fx.glints(innerWidth / 2, innerHeight * 0.3, 40, 2.4);
     }
   });

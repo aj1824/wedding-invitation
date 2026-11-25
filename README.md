@@ -55,6 +55,7 @@ assets/
     components.css      buttons, countdown, flip card, event cards, venue maps
     intro.css           envelope → ribbon → garden gates opening
     sections.css        invitation, reception, closing pages
+    responsive.css      scroll hint, small-phone & short-screen sizing, desktop "centred card" layout
   js/
     core.js             shared helpers (window.Invite), section visibility, reveal
     fx.js               petals / confetti / sparkles canvas
@@ -62,7 +63,7 @@ assets/
     music.js            song.mp3 or the built-in piano piece
     intro.js            the opening sequence
     app.js              wires everything together
-    components/         countdown, carousel, venues, flipcard, emblems, ambient
+    components/         countdown, carousel, venues, flipcard, emblems, ambient, scrollhint
   img/                  pre-rendered flower and sky pictures (WebP)
 tools/                  source artwork + script that renders assets/img (not deployed)
 ```
@@ -71,7 +72,7 @@ Scripts are plain `<script defer>` files rather than ES modules, so the site als
 
 ## Updating after a change
 
-The CSS and JS links in `index.html` end in `?v=3`. After changing any CSS, JS or image, increase that number (to `?v=4` and so on). Otherwise visitors' browsers may keep showing the cached old files.
+The CSS and JS links in `index.html` end in `?v=9`. After changing any CSS, JS or image, increase that number (to `?v=10` and so on). Otherwise visitors' browsers may keep showing the cached old files.
 
 ## Changing the flower and sky artwork
 

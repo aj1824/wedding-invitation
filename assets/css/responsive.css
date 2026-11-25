@@ -1,0 +1,76 @@
+/* ============ scroll hint ============ */
+.scroll-hint{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom));z-index:49;display:flex;align-items:center;gap:12px;padding:8px 8px 8px 18px;border-radius:999px;
+  background:rgba(255,255,255,.92);color:var(--plum);box-shadow:0 12px 28px -12px rgba(91,74,93,.6),inset 0 0 0 1px rgba(201,174,179,.75);
+  opacity:0;transform:translate(-50%,18px);pointer-events:none;transition:opacity .45s ease,transform .45s cubic-bezier(.2,.8,.2,1);cursor:pointer;max-width:calc(100vw - 32px)}
+.scroll-hint.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.sh-txt{display:flex;flex-direction:column;align-items:flex-start;line-height:1.2;text-align:left;white-space:nowrap}
+.sh-txt b{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:600}
+.sh-txt small{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--mauve);overflow:hidden;text-overflow:ellipsis;max-width:200px}
+.sh-txt small:empty{display:none}
+.sh-arrow{position:relative;flex:none;width:34px;height:34px;border-radius:50%;background:linear-gradient(180deg,#9c829e,#6f5a72);box-shadow:inset 0 1px 0 rgba(255,255,255,.3)}
+.sh-arrow i{position:absolute;left:50%;width:8px;height:8px;margin-left:-4px;border-right:2px solid #fff;border-bottom:2px solid #fff;animation:shDown 1.5s ease-in-out infinite}
+.sh-arrow i:first-child{top:8px}
+.sh-arrow i:last-child{top:14px;animation-delay:.18s}
+.scroll-hint:not(.on) i{animation-play-state:paused}
+@keyframes shDown{0%{opacity:0;transform:translateY(-4px) rotate(45deg)}50%{opacity:1}100%{opacity:0;transform:translateY(5px) rotate(45deg)}}
+
+/* ============ music button: top-right, out of the way of content and the hint ============ */
+#musicBtn{top:calc(12px + env(safe-area-inset-top));bottom:auto;right:12px;width:42px;height:42px}
+#musicBtn svg{width:18px;height:18px}
+
+/* ============ reception address as an elegant line, not spaced capitals ============ */
+.rec-addr{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;line-height:1.35;color:#efe6f4;margin-top:4px}
+
+/* ============ small phones (iPhone SE / compact Android) ============ */
+@media (max-width:360px){
+  .sec{padding-left:16px;padding-right:16px}
+  .h2{font-size:42px}
+  .story{font-size:18px}
+  .calli{font-size:36px}
+  .names{font-size:38px}
+  .names .parents{font-size:13.5px}
+  #invite .req{font-size:9.5px;letter-spacing:.16em}
+  .memory b{font-size:16.5px}
+  .dateblock{gap:10px}
+  .dateblock .num{font-size:50px}
+  .dateblock .side{font-size:12px;letter-spacing:.24em}
+  .venue{font-size:30px}
+  .dinner{font-size:15px}
+  .countdown{gap:6px}
+  .cd b{font-size:24px}
+  .ev-card{padding:16px 14px}
+  .ev-name{font-size:38px}
+  .rec-box{padding:44px 16px 32px}
+  .rec-title{font-size:48px}
+  .rec-big{font-size:64px}
+  .loc-card{padding:14px}
+  .loc-name{font-size:24px}
+  .loc-btns .btn{font-size:9.5px;letter-spacing:.06em;gap:6px;padding:11px 6px}
+  .closing-title{font-size:24px}
+  .couple-sign{font-size:34px}
+  .sh-txt small{max-width:150px}
+}
+
+/* ============ short screens: keep the envelope text clear of the tap hint ============ */
+@media (max-height:680px){
+  .env-text{top:61%}
+  .env-names{font-size:36px}
+  .env-tag{font-size:19px}
+  .env-from{margin-top:8px}
+  .hint{bottom:calc(14px + env(safe-area-inset-bottom));font-size:17px}
+  .hint .fing{font-size:20px}
+  .flap-wrap .wax{width:min(26vw,104px);height:min(26vw,104px)}
+  .intro-top{top:calc(14px + env(safe-area-inset-top))}
+  #invite{padding-top:9vh}
+}
+
+/* ============ tablets & desktops: show the invitation as a centred phone-width card ============ */
+@media (min-width:700px){
+  body{background:var(--emboss),linear-gradient(135deg,#f1dfe1 0%,#e6dff0 100%);background-size:150px 150px,100% 100%}
+  #site,footer{position:relative;max-width:480px;margin:0 auto;box-shadow:0 0 70px rgba(91,74,93,.22)}
+  #site{overflow:hidden}
+  #intro{left:calc(50% - 240px);right:auto;width:480px;box-shadow:0 0 70px rgba(40,20,40,.3)}
+  #musicBtn{right:calc(50% - 240px + 12px)}
+  #progress{left:calc(50% - 240px);width:480px}
+  .sec{min-height:min(100vh,940px)}
+}

@@ -1,5 +1,5 @@
 /* ============ opening: envelope → card → ribbon → gates ============ */
-#intro{position:fixed;inset:0;z-index:50;overflow:hidden;background:#d9c2c4;transition:opacity 1.1s ease;outline:none}
+#intro{position:fixed;inset:0;z-index:50;overflow:hidden;container-type:size;background:#d9c2c4;transition:opacity 1.1s ease;outline:none}
 #intro.leave{opacity:0;pointer-events:none}
 .env-stage{position:absolute;inset:0;perspective:2200px;perspective-origin:50% 30%}
 .emboss-bg{background-image:var(--emboss),radial-gradient(ellipse at 50% 35%,#f8e6e5 0%,#f1d8d7 55%,#e9cbca 100%);background-size:150px 150px,100% 100%}
@@ -35,6 +35,8 @@
 /* floral scene inside the card (pictures are pre-rendered — see tools/) */
 .scene-box{position:absolute;left:50%;top:50%;width:max(100vw,50vh);height:max(200vw,100vh);transform:translate(-50%,-50%);transform-origin:50% 57%;transition:transform 1.7s cubic-bezier(.55,0,.35,1)}
 @supports (height:100dvh){.scene-box{width:max(100vw,50dvh);height:max(200vw,100dvh)}}
+/* size the scene to the intro box itself (full screen on phones, the centred card on desktop) */
+@supports (width:1cqw){.scene-box{width:max(100cqw,50cqh);height:max(200cqw,100cqh)}}
 #intro.zoom .scene-box{transform:translate(-50%,-50%) scale(2.6)}
 .layer{position:absolute;inset:0}
 .layer>img{width:100%;height:100%}

@@ -23,10 +23,11 @@
 <link rel="preload" as="image" href="assets/img/arch-florals.webp" type="image/webp">
 <link rel="preload" as="image" href="assets/img/hero-florals.webp" type="image/webp">
 
-<link rel="stylesheet" href="assets/css/base.css?v=8">
-<link rel="stylesheet" href="assets/css/components.css?v=8">
-<link rel="stylesheet" href="assets/css/intro.css?v=8">
-<link rel="stylesheet" href="assets/css/sections.css?v=8">
+<link rel="stylesheet" href="assets/css/base.css?v=9">
+<link rel="stylesheet" href="assets/css/components.css?v=9">
+<link rel="stylesheet" href="assets/css/intro.css?v=9">
+<link rel="stylesheet" href="assets/css/sections.css?v=9">
+<link rel="stylesheet" href="assets/css/responsive.css?v=9">
 </head>
 <body class="locked">
 
@@ -133,11 +134,10 @@
     <div class="dinner glow"><b>Dinner</b> <span data-bind="events.1.time"></span> · <span data-bind="events.1.venue"></span>, <span data-bind="events.1.address"></span></div>
     <div><a class="song-pill" data-song-pill hidden target="_blank" rel="noopener">♪ Our Song</a></div>
   </div>
-  <div class="scroll-cue"><span>Scroll</span><i></i></div>
 </section>
 
 <!-- ============ SAVE THE DATE ============ -->
-<section class="sec deferred" id="date">
+<section class="sec deferred" id="date" data-hint="Save the Date">
   <div class="motes" data-motes="6"></div>
   <p class="story reveal" data-story></p>
   <svg class="divider reveal d1" style="margin-top:16px"><use href="#divider"/></svg>
@@ -173,7 +173,7 @@
 </section>
 
 <!-- ============ EVENTS ============ -->
-<section class="sec deferred" id="events">
+<section class="sec deferred" id="events" data-hint="The Celebrations">
   <div class="eyebrow reveal">Join us for</div>
   <h2 class="h2 reveal d1">The Celebrations</h2>
   <svg class="divider reveal d1"><use href="#divider"/></svg>
@@ -187,7 +187,7 @@
 </section>
 
 <!-- ============ RECEPTION ============ -->
-<section class="sec deferred" id="reception">
+<section class="sec deferred" id="reception" data-hint="Reception">
   <div class="lights" data-lights></div>
   <div class="rec-fl"><img src="assets/img/reception-florals.webp" alt="" loading="lazy" decoding="async"></div>
   <div id="sparkles"></div>
@@ -203,13 +203,13 @@
       <div class="rec-line rec-hijri" data-bind="events.2.hijri"></div>
       <div class="rec-line" style="margin-top:10px" data-bind="events.2.time"></div>
       <div class="rec-venue" data-bind="events.2.venue"></div>
-      <div class="rec-line" data-bind="events.2.address"></div>
+      <div class="rec-addr" data-bind="events.2.address"></div>
     </div>
   </div>
 </section>
 
 <!-- ============ VENUES ============ -->
-<section class="sec deferred" id="location">
+<section class="sec deferred" id="location" data-hint="Venues &amp; Maps">
   <div class="eyebrow reveal">Find your way</div>
   <h2 class="h2 reveal d1">The Venues</h2>
   <svg class="divider reveal d1"><use href="#divider"/></svg>
@@ -217,7 +217,7 @@
 </section>
 
 <!-- ============ CLOSING ============ -->
-<section class="sec deferred" id="closing">
+<section class="sec deferred" id="closing" data-hint="With Love">
   <div class="bg-layer" data-par="3" data-k=".08"><div class="cover-box at-bottom" data-sky><img src="assets/img/sky.webp" alt="" loading="lazy" decoding="async"></div></div>
   <div class="bg-layer fl-layer" data-par="12"><div class="cover-box at-top"><img src="assets/img/closing-florals.webp" alt="" loading="lazy" decoding="async"></div></div>
   <div class="motes" data-motes="8"></div>
@@ -245,18 +245,19 @@
 </button>
 <div id="toast" role="status" aria-live="polite"></div>
 
-<script src="config.js?v=8" defer></script>
-<script src="assets/js/core.js?v=8" defer></script>
-<script src="assets/js/fx.js?v=8" defer></script>
-<script src="assets/js/motion.js?v=8" defer></script>
-<script src="assets/js/music.js?v=8" defer></script>
-<script src="assets/js/components/ambient.js?v=8" defer></script>
-<script src="assets/js/components/emblems.js?v=8" defer></script>
-<script src="assets/js/components/countdown.js?v=8" defer></script>
-<script src="assets/js/components/carousel.js?v=8" defer></script>
-<script src="assets/js/components/venues.js?v=8" defer></script>
-<script src="assets/js/components/flipcard.js?v=8" defer></script>
-<script src="assets/js/intro.js?v=8" defer></script>
-<script src="assets/js/app.js?v=8" defer></script>
+<script src="config.js?v=9" defer></script>
+<script src="assets/js/core.js?v=9" defer></script>
+<script src="assets/js/fx.js?v=9" defer></script>
+<script src="assets/js/motion.js?v=9" defer></script>
+<script src="assets/js/music.js?v=9" defer></script>
+<script src="assets/js/components/ambient.js?v=9" defer></script>
+<script src="assets/js/components/emblems.js?v=9" defer></script>
+<script src="assets/js/components/countdown.js?v=9" defer></script>
+<script src="assets/js/components/carousel.js?v=9" defer></script>
+<script src="assets/js/components/venues.js?v=9" defer></script>
+<script src="assets/js/components/flipcard.js?v=9" defer></script>
+<script src="assets/js/components/scrollhint.js?v=9" defer></script>
+<script src="assets/js/intro.js?v=9" defer></script>
+<script src="assets/js/app.js?v=9" defer></script>
 </body>
 </html>
