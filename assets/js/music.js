@@ -8,61 +8,99 @@
 (function () {
   const I = window.Invite, cfg = (I.cfg.music || {});
 
-  /* ---------------- soft piano piece ---------------- */
+  /* ---------------- "Rajab Evening": an original, gentle piece for felt piano and soft strings ----------------
+     Written to be easy on the ears: slow (58 bpm), warm D major, mid-range melody with space to breathe,
+     round piano tone with the top end filtered off, a quiet string bed and a soft dark room reverb.
+     Overall level is deliberately low (it sits under conversation). */
   const Soft = (() => {
-    let ctx = null, master, bus, timer = null, nextBar = 0, bar = 0, loopN = 0, on = false;
+    let ctx = null, master, pianoBus, padBus, timer = null, nextBar = 0, bar = 0, on = false;
     const mtof = m => 440 * Math.pow(2, (m - 69) / 12);
-    const BEAT = 60 / 66, BAR = BEAT * 4, VOL = 1.8;
-    const CH = { F: [41, 4], C: [36, 4], Dm: [38, 3], Bb: [46, 4], Gm: [43, 3] };
-    const PROG = ['F', 'C', 'Dm', 'Bb', 'F', 'C', 'Bb', 'C', 'Dm', 'Bb', 'F', 'C', 'Gm', 'Bb', 'C', 'F'];
+    const BEAT = 60 / 58, BAR = BEAT * 4;
+    const VOL = 0.62;                 // final loudness (was far louder before)
+
+    // chords: [root (octave 3), third interval]
+    const CH = { D: [50, 4], Bm: [47, 3], G: [43, 4], A: [45, 4], 'F#m': [42, 3] };
+    const PROG = ['D', 'Bm', 'G', 'A', 'D', 'F#m', 'G', 'A', 'Bm', 'G', 'D', 'A', 'G', 'A', 'D', 'A'];
+    // melody per bar: [midi note or null for a rest, length in beats]
     const MEL = [
-      [[69, 2], [72, 1], [77, 1]], [[76, 2], [74, 1], [72, 1]], [[74, 3], [69, 1]], [[70, 2], [72, 1], [74, 1]],
-      [[72, 2], [69, 1], [72, 1]], [[67, 3], [64, 1]], [[65, 2], [67, 1], [69, 1]], [[67, 4]],
-      [[69, 2], [74, 1], [77, 1]], [[77, 2], [74, 1], [70, 1]], [[72, 3], [69, 1]], [[72, 2], [74, 1], [76, 1]],
-      [[74, 2], [70, 1], [67, 1]], [[74, 2], [72, 1], [70, 1]], [[72, 2], [76, 1], [79, 1]], [[77, 4]]
+      [[69, 1.5], [66, .5], [69, 1], [74, 1]],
+      [[74, 1.5], [73, .5], [71, 2]],
+      [[71, 1], [69, 1], [67, 1], [71, 1]],
+      [[69, 3], [null, 1]],
+      [[74, 1.5], [76, .5], [78, 1], [76, 1]],
+      [[73, 2], [69, 2]],
+      [[71, 1], [74, 1], [71, 1], [69, 1]],
+      [[69, 1.5], [71, .5], [73, 2]],
+      [[66, 1], [71, 1], [74, 1.5], [73, .5]],
+      [[71, 2], [67, 2]],
+      [[69, 1], [66, 1], [69, 1], [74, 1]],
+      [[73, 3], [null, 1]],
+      [[71, 1.5], [73, .5], [74, 1], [71, 1]],
+      [[69, 2], [76, 2]],
+      [[78, 1.5], [76, .5], [74, 2]],
+      [[null, 2], [69, 1], [73, 1]]
     ];
-    function impulse(sec, decay) {
+
+    // smooth, dark room reverb (filtered noise so the tail has no hiss)
+    function impulse(sec) {
       const len = Math.floor(ctx.sampleRate * sec), b = ctx.createBuffer(2, len, ctx.sampleRate);
-      for (let c = 0; c < 2; c++) { const d = b.getChannelData(c); for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, decay); }
+      for (let c = 0; c < 2; c++) {
+        const d = b.getChannelData(c); let y = 0;
+        for (let i = 0; i < len; i++) { y = y * 0.55 + (Math.random() * 2 - 1) * 0.45; d[i] = y * Math.pow(1 - i / len, 3.2); }
+      }
       return b;
     }
     function build() {
       master = ctx.createGain(); master.gain.value = 0.0001;
-      const comp = ctx.createDynamicsCompressor(), lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 4200;
-      const rev = ctx.createConvolver(); rev.buffer = impulse(3.4, 2.6);
-      const wet = ctx.createGain(); wet.gain.value = 0.42; const dry = ctx.createGain(); dry.gain.value = 0.72;
-      bus = ctx.createGain(); bus.connect(dry); bus.connect(rev); rev.connect(wet);
-      dry.connect(lp); wet.connect(lp); lp.connect(comp); comp.connect(master); master.connect(ctx.destination);
+      const comp = ctx.createDynamicsCompressor();
+      comp.threshold.value = -26; comp.knee.value = 18; comp.ratio.value = 3; comp.attack.value = 0.02; comp.release.value = 0.4;
+      const tone = ctx.createBiquadFilter(); tone.type = 'lowpass'; tone.frequency.value = 3000; tone.Q.value = 0.4;
+      const rev = ctx.createConvolver(); rev.buffer = impulse(3.2);
+      const wet = ctx.createGain(); wet.gain.value = 0.5;
+      const dry = ctx.createGain(); dry.gain.value = 0.62;
+      pianoBus = ctx.createBiquadFilter(); pianoBus.type = 'lowpass'; pianoBus.frequency.value = 2200; pianoBus.Q.value = 0.3;
+      padBus = ctx.createBiquadFilter(); padBus.type = 'lowpass'; padBus.frequency.value = 750; padBus.Q.value = 0.5;
+      [pianoBus, padBus].forEach(n => { n.connect(dry); n.connect(rev); });
+      rev.connect(wet); dry.connect(tone); wet.connect(tone); tone.connect(comp); comp.connect(master); master.connect(ctx.destination);
     }
-    function piano(m, t, dur, vel) {
-      const f = mtof(m), g = ctx.createGain(); g.connect(bus);
-      g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(vel, t + 0.012);
-      g.gain.exponentialRampToValueAtTime(vel * 0.32, t + 0.4); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-      [[1, 1], [2, 0.3], [3, 0.09], [4, 0.04]].forEach(([k, a], i) => {
-        const o = ctx.createOscillator(), og = ctx.createGain(); o.type = 'sine'; o.frequency.value = f * k * (1 + i * 0.0007);
+    const pan = (node, p) => {
+      if (!ctx.createStereoPanner) return node;
+      const s = ctx.createStereoPanner(); s.pan.value = p; s.connect(node); return s;
+    };
+    // felt piano: fundamental + gentle low overtones, soft attack, long natural decay
+    function piano(m, t, dur, vel, p = 0) {
+      const f = mtof(m), g = ctx.createGain(); g.connect(pan(pianoBus, p));
+      g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(vel, t + 0.018);
+      g.gain.exponentialRampToValueAtTime(vel * 0.42, t + 0.7); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+      [[1, 1], [2, 0.16], [3, 0.035]].forEach(([k, a]) => {
+        const o = ctx.createOscillator(), og = ctx.createGain(); o.type = 'sine'; o.frequency.value = f * k;
         og.gain.value = a; o.connect(og); og.connect(g); o.start(t); o.stop(t + dur + 0.05);
       });
     }
-    function pad(notes, t, dur) {
-      notes.forEach(m => {
-        const o = ctx.createOscillator(), lp = ctx.createBiquadFilter(), g = ctx.createGain();
-        o.type = 'triangle'; o.frequency.value = mtof(m); lp.type = 'lowpass'; lp.frequency.value = 800;
-        g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(0.016, t + 1.2); g.gain.linearRampToValueAtTime(0.0001, t + dur + 0.8);
-        o.connect(lp); lp.connect(g); g.connect(bus); o.start(t); o.stop(t + dur + 1);
-      });
+    // soft string bed: two slightly detuned voices per note, slow swell, very quiet
+    function strings(notes, t, dur) {
+      notes.forEach((m, i) => [-5, 5].forEach(cents => {
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = 'sawtooth'; o.frequency.value = mtof(m); o.detune.value = cents;
+        g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(0.0065, t + 1.6);
+        g.gain.setValueAtTime(0.0065, t + dur - 0.4); g.gain.linearRampToValueAtTime(0.0001, t + dur + 1.4);
+        o.connect(g); g.connect(pan(padBus, i === 0 ? -0.25 : i === 2 ? 0.25 : 0)); o.start(t); o.stop(t + dur + 1.5);
+      }));
     }
     function scheduleBar(t, i) {
-      const [root, third] = CH[PROG[i]], jit = () => (Math.random() - 0.5) * 0.012;
-      [0, 7, 12, 12 + third, 19, 12 + third, 12, 7].forEach((o, k) => piano(root + o, t + k * BEAT / 2 + jit(), 1.8, (k ? 0.06 : 0.1) * (0.9 + Math.random() * 0.2)));
-      pad([root + 12, root + 12 + third, root + 19], t, BAR);
+      const [root, third] = CH[PROG[i]], jit = () => (Math.random() - 0.5) * 0.02, v = () => 0.88 + Math.random() * 0.2;
+      // left hand: low root, then a gentle broken chord in quarter notes
+      piano(root - 12, t + jit(), BAR + 1.6, 0.085 * v(), -0.15);
+      [[7, 0.04], [12, 0.034], [12 + third, 0.03]].forEach(([o, vel], k) => piano(root + o, t + (k + 1) * BEAT + jit(), 2.6, vel * v(), -0.2));
+      strings([root + 12, root + 12 + third, root + 19], t, BAR);
+      // right hand: the melody
       let bt = 0;
       MEL[i].forEach(([m, len]) => {
-        piano(m, t + bt * BEAT + jit(), Math.max(1.8, len * BEAT + 1), 0.15 * (0.9 + Math.random() * 0.15));
-        if (loopN % 2) piano(m + 12, t + bt * BEAT + BEAT / 2, 1.4, 0.03);
+        if (m != null) piano(m, t + bt * BEAT + jit(), Math.max(2.2, len * BEAT + 1.4), 0.1 * v(), 0.12);
         bt += len;
       });
     }
-    function tick() { while (nextBar < ctx.currentTime + 1.2) { scheduleBar(nextBar, bar); if (++bar === PROG.length) { bar = 0; loopN++; } nextBar += BAR; } }
+    function tick() { while (nextBar < ctx.currentTime + 1.5) { scheduleBar(nextBar, bar); bar = (bar + 1) % PROG.length; nextBar += BAR; } }
     function ramp(v, s, lin) {
       const n = ctx.currentTime; master.gain.cancelScheduledValues(n); master.gain.setValueAtTime(Math.max(master.gain.value, 0.0001), n);
       lin ? master.gain.linearRampToValueAtTime(v, n + s) : master.gain.exponentialRampToValueAtTime(v, n + s);
@@ -78,14 +116,13 @@
       running: () => !!ctx && ctx.state === 'running',
       start() {
         if (on) return true; if (!this.unlock()) return false;
-        on = true; nextBar = ctx.currentTime + 0.2; bar = 0; loopN = 0; ramp(VOL, 3, true); tick(); timer = setInterval(tick, 250); return true;
+        on = true; nextBar = ctx.currentTime + 0.25; bar = 0; ramp(VOL, 5, true); tick(); timer = setInterval(tick, 300); return true;
       },
       isPlaying: () => on && !!ctx && ctx.state === 'running',
-      pause() { if (!ctx) return; ramp(0.0001, 0.5); setTimeout(() => ctx.suspend(), 550); },
-      resume() { if (!ctx) return; ctx.resume().then(() => ramp(VOL, 1.2, true)).catch(() => {}); }
+      pause() { if (!ctx) return; ramp(0.0001, 0.6); setTimeout(() => ctx.suspend(), 650); },
+      resume() { if (!ctx) return; ctx.resume().then(() => ramp(VOL, 1.5, true)).catch(() => {}); }
     };
   })();
-
   /* ---------------- player ---------------- */
   const audio = I.$('#bgm'), btn = I.$('#musicBtn');
   if (!audio || !btn) return;

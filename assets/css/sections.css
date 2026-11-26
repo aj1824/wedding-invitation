@@ -68,8 +68,6 @@
 #invite .dateblock{margin-top:8px}
 #invite .when{margin-top:8px}
 #invite .venue{margin-top:2px}
-.dinner{margin-top:10px;font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--plum);line-height:1.4}
-.dinner b{font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--mauve);margin-right:4px}
 .rec-ar{font-size:clamp(36px,10vw,46px);color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.3)}
 .rec-name{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;line-height:1.4;color:#efe6f4;margin-top:2px}
 .rec-hijri{letter-spacing:.14em;text-transform:none;font-style:italic;font-family:'Cormorant Garamond',serif;font-size:15px}

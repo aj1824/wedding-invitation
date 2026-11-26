@@ -39,7 +39,7 @@ Use `%20` for spaces. WhatsApp usually handles plain spaces too.
 
 ## Music
 
-- By default a soft built-in piano piece plays (`music.softSong` in `config.js`).
+- By default a soft built-in piece plays (`music.softSong` in `config.js`): an original, slow felt-piano and strings piece, mixed quietly and generated live in the browser. Its volume is `VOL` near the top of `assets/js/music.js`.
 - To use your own song, add `song.mp3` next to `index.html` and set `music.file: "song.mp3"` in `config.js`.
 - Browsers only allow sound after the first tap, so the music starts when the guest taps the wax seal.
 

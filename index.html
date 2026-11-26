@@ -23,11 +23,11 @@
 <link rel="preload" as="image" href="assets/img/arch-florals.webp" type="image/webp">
 <link rel="preload" as="image" href="assets/img/hero-florals.webp" type="image/webp">
 
-<link rel="stylesheet" href="assets/css/base.css?v=9">
-<link rel="stylesheet" href="assets/css/components.css?v=9">
-<link rel="stylesheet" href="assets/css/intro.css?v=9">
-<link rel="stylesheet" href="assets/css/sections.css?v=9">
-<link rel="stylesheet" href="assets/css/responsive.css?v=9">
+<link rel="stylesheet" href="assets/css/base.css?v=15">
+<link rel="stylesheet" href="assets/css/components.css?v=15">
+<link rel="stylesheet" href="assets/css/intro.css?v=15">
+<link rel="stylesheet" href="assets/css/sections.css?v=15">
+<link rel="stylesheet" href="assets/css/responsive.css?v=15">
 </head>
 <body class="locked">
 
@@ -126,17 +126,16 @@
       <span class="nm b" data-bind="bride.name"></span>
       <span class="parents" data-bind="bride.parents"></span>
     </div>
-    <div class="ev-label glow">Nikah</div>
-    <div class="dateblock glow"><div class="side" data-dp="0.mon"></div><div class="num" data-dp="0.day"></div><div class="side" data-dp="0.year"></div></div>
-    <div class="dayname glow"><span data-bind="events.0.day"></span> · <span data-bind="events.0.hijri"></span></div>
-    <div class="when glow" data-bind="events.0.time"></div>
-    <div class="venue glow" data-bind="events.0.venue"></div>
-    <div class="dinner glow"><b>Dinner</b> <span data-bind="events.1.time"></span> · <span data-bind="events.1.venue"></span>, <span data-bind="events.1.address"></span></div>
+    <div class="ev-label glow">Reception</div>
+    <div class="dateblock glow"><div class="side" data-dp="1.mon"></div><div class="num" data-dp="1.day"></div><div class="side" data-dp="1.year"></div></div>
+    <div class="dayname glow"><span data-bind="events.1.day"></span> · <span data-bind="events.1.hijri"></span></div>
+    <div class="when glow" data-bind="events.1.time"></div>
+    <div class="venue glow" data-bind="events.1.venue"></div>
     <div><a class="song-pill" data-song-pill hidden target="_blank" rel="noopener">♪ Our Song</a></div>
   </div>
 </section>
 
-<!-- ============ SAVE THE DATE ============ -->
+<!-- ============ SAVE THE DATE (flip card + always-visible countdown) ============ -->
 <section class="sec deferred" id="date" data-hint="Save the Date">
   <div class="motes" data-motes="6"></div>
   <p class="story reveal" data-story></p>
@@ -144,25 +143,25 @@
   <h2 class="h2 reveal d1">Save the Date</h2>
   <div class="flip-wrap reveal d2">
     <div class="flip-float"><div class="flip-tilt" data-tilt="10">
-      <div class="flip-card" id="flipCard" role="button" tabindex="0" aria-label="Tap to reveal the Nikah date" data-glare>
+      <div class="flip-card" id="flipCard" role="button" tabindex="0" aria-label="Tap to reveal the dates" data-glare>
         <div class="fc front"><div class="wax" data-wax></div><div class="t">Save the Date</div><div class="s">Tap to reveal</div></div>
         <div class="fc back">
           <div class="arabic bism2">بِسْمِ ٱللَّٰهِ</div>
-          <div class="eyebrow" style="margin-top:6px">The Nikah of</div>
-          <div class="names" style="font-size:30px;margin-top:2px" data-couple></div>
-          <div class="dateblock"><div class="side" data-dp="0.mon"></div><div class="num" data-dp="0.day"></div><div class="side" data-dp="0.year"></div></div>
-          <div class="dayname" data-bind="events.0.day"></div>
-          <div class="hj" data-bind="events.0.hijri"></div>
-          <div class="tm" data-bind="events.0.time"></div>
-          <div class="vn" data-bind="events.0.venue"></div>
+          <div class="names fc-names" data-couple></div>
+          <div class="fc-ev">Reception</div>
+          <div class="dateblock"><div class="side" data-dp="1.mon"></div><div class="num" data-dp="1.day"></div><div class="side" data-dp="1.year"></div></div>
+          <div class="dayname" data-bind="events.1.day"></div>
+          <div class="hj" data-bind="events.1.hijri"></div>
+          <div class="tm" data-bind="events.1.time"></div>
+          <div class="vn" data-bind="events.1.venue"></div>
         </div>
       </div>
     </div></div>
     <div class="flip-shadow"></div>
   </div>
-  <p class="note-tap" id="flipNote">Tap the card to reveal the date</p>
-  <div class="after" id="after">
-    <div class="eyebrow" style="margin-top:18px">Counting down to the Nikah</div>
+  <p class="note-tap" id="flipNote">Tap the card to reveal the dates</p>
+  <div class="cd-wrap reveal d2">
+    <div class="eyebrow" data-bind="countdownLabel"></div>
     <div class="countdown" data-countdown>
       <div class="cd"><b data-cd="d">00</b><span>Days</span></div>
       <div class="cd"><b data-cd="h">00</b><span>Hours</span></div>
@@ -185,9 +184,8 @@
   </div>
   <div class="swipe-note">Swipe to see more</div>
 </section>
-
-<!-- ============ RECEPTION ============ -->
-<section class="sec deferred" id="reception" data-hint="Reception">
+<!-- ============ NIKAH (purple card) ============ -->
+<section class="sec deferred" id="reception" data-hint="Nikah">
   <div class="lights" data-lights></div>
   <div class="rec-fl"><img src="assets/img/reception-florals.webp" alt="" loading="lazy" decoding="async"></div>
   <div id="sparkles"></div>
@@ -196,14 +194,14 @@
     <div class="rec-box" data-tilt="8">
       <div class="calli rec-ar" lang="ar">هَٰذَا مِن فَضْلِ رَبِّي</div>
       <div class="rec-name">In the Name of Almighty Allah,<br>the most Merciful and most Kind.</div>
-      <div class="rec-title silver-text">Reception</div>
-      <div class="rec-day" data-bind="events.2.day"></div>
-      <div class="rec-big" data-dp="2.day"></div>
-      <div class="rec-line"><span data-dp="2.monLong"></span> <span data-dp="2.year"></span></div>
-      <div class="rec-line rec-hijri" data-bind="events.2.hijri"></div>
-      <div class="rec-line" style="margin-top:10px" data-bind="events.2.time"></div>
-      <div class="rec-venue" data-bind="events.2.venue"></div>
-      <div class="rec-addr" data-bind="events.2.address"></div>
+      <div class="rec-title silver-text">Nikah</div>
+      <div class="rec-day" data-bind="events.0.day"></div>
+      <div class="rec-big" data-dp="0.day"></div>
+      <div class="rec-line"><span data-dp="0.monLong"></span> <span data-dp="0.year"></span></div>
+      <div class="rec-line rec-hijri" data-bind="events.0.hijri"></div>
+      <div class="rec-line" style="margin-top:10px" data-bind="events.0.time"></div>
+      <div class="rec-venue" data-bind="events.0.venue"></div>
+      <div class="rec-addr" data-bind="events.0.address"></div>
     </div>
   </div>
 </section>
@@ -245,19 +243,19 @@
 </button>
 <div id="toast" role="status" aria-live="polite"></div>
 
-<script src="config.js?v=9" defer></script>
-<script src="assets/js/core.js?v=9" defer></script>
-<script src="assets/js/fx.js?v=9" defer></script>
-<script src="assets/js/motion.js?v=9" defer></script>
-<script src="assets/js/music.js?v=9" defer></script>
-<script src="assets/js/components/ambient.js?v=9" defer></script>
-<script src="assets/js/components/emblems.js?v=9" defer></script>
-<script src="assets/js/components/countdown.js?v=9" defer></script>
-<script src="assets/js/components/carousel.js?v=9" defer></script>
-<script src="assets/js/components/venues.js?v=9" defer></script>
-<script src="assets/js/components/flipcard.js?v=9" defer></script>
-<script src="assets/js/components/scrollhint.js?v=9" defer></script>
-<script src="assets/js/intro.js?v=9" defer></script>
-<script src="assets/js/app.js?v=9" defer></script>
+<script src="config.js?v=15" defer></script>
+<script src="assets/js/core.js?v=15" defer></script>
+<script src="assets/js/fx.js?v=15" defer></script>
+<script src="assets/js/motion.js?v=15" defer></script>
+<script src="assets/js/music.js?v=15" defer></script>
+<script src="assets/js/components/ambient.js?v=15" defer></script>
+<script src="assets/js/components/emblems.js?v=15" defer></script>
+<script src="assets/js/components/countdown.js?v=15" defer></script>
+<script src="assets/js/components/carousel.js?v=15" defer></script>
+<script src="assets/js/components/venues.js?v=15" defer></script>
+<script src="assets/js/components/flipcard.js?v=15" defer></script>
+<script src="assets/js/components/scrollhint.js?v=15" defer></script>
+<script src="assets/js/intro.js?v=15" defer></script>
+<script src="assets/js/app.js?v=15" defer></script>
 </body>
 </html>

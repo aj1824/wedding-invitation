@@ -139,3 +139,15 @@
 .map iframe{display:block;width:100%;height:100%;border:0}
 button.map-tip{font:inherit;font-size:9.5px;cursor:pointer;border:0}
 .loc-open{display:inline-block;margin-top:12px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--mauve);text-decoration:none;position:relative}
+/* flip card back: Reception first, Nikah below */
+.fc.back{padding:20px 18px;justify-content:center}
+.fc.back .fc-names{font-size:28px;margin-top:0}
+.fc-ev{margin-top:8px;font-size:10.5px;letter-spacing:.42em;text-transform:uppercase;color:var(--mauve)}
+.fc.back .dateblock{margin-top:6px;gap:10px}
+.fc.back .dateblock .num{font-size:46px}
+.fc.back .dateblock .side{font-size:11.5px}
+.fc.back .tm{font-size:17px;margin-top:6px}
+.fc-nikah{margin-top:12px;padding-top:10px;border-top:1px solid rgba(201,174,179,.7);width:88%;font-family:'Cormorant Garamond',serif;font-size:14.5px;line-height:1.35;color:var(--ink)}
+.fc-nikah b{display:block;font-family:'Montserrat',sans-serif;font-weight:600;font-size:9.5px;letter-spacing:.38em;text-transform:uppercase;color:var(--mauve);margin-bottom:2px}
+/* countdown sits below the card and is always shown */
+.cd-wrap{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;margin-top:18px}

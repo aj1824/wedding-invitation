@@ -18,6 +18,7 @@ window.INVITE_CONFIG = {
 
   // Personal links: add ?to=Name to the link (e.g. …/?to=Khan%20Family) and the envelope says "To, Khan Family".
 
+  // events[0] is the Nikah, events[1] is the Reception.
   events: [
     {
       id: "nikah", name: "Nikah", art: "mosque",
@@ -28,19 +29,7 @@ window.INVITE_CONFIG = {
       // exact pin (Google place "Masjid-e-Kausar", Plus Code FVFV+53X)
       lat: 18.47299, lng: 73.89273, placeId: "ChIJPVIcGGPqwjsRrKNTG7yD_PE",
       dress: "", colour: "", colourHex: "",            // optional — leave empty to hide
-      // Used for the countdown (Asr in Pune in mid-December is around 4:15–4:30 PM).
       start: "2026-12-19T16:30:00+05:30", end: "2026-12-19T18:30:00+05:30"
-    },
-    {
-      id: "nikah-dinner", name: "Dinner", art: "reception",
-      day: "Saturday", date: "19th December 2026", hijri: "10th Rajab 1448 Hijri",
-      time: "7:30 PM onwards",
-      venue: "Kausar Baugh Lawns",
-      address: "Kondhwa, Pune",
-      // TODO: exact pin not found online — paste the lawns' Google Maps coordinates here (lat/lng); until then the map searches by name
-      lat: null, lng: null, placeId: "",
-      dress: "", colour: "", colourHex: "",
-      start: "2026-12-19T19:30:00+05:30", end: "2026-12-19T22:30:00+05:30"
     },
     {
       id: "reception", name: "Reception", art: "reception",
@@ -55,7 +44,9 @@ window.INVITE_CONFIG = {
     }
   ],
 
-  countdownTo: "2026-12-19T16:30:00+05:30",
+  // the countdown counts down to the Reception
+  countdownTo: "2026-12-21T19:30:00+05:30",
+  countdownLabel: "Counting down to the Reception",
 
   music: {
     file: "",           // to use your own song: add song.mp3 next to index.html and set this to "song.mp3"

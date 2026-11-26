@@ -35,7 +35,6 @@
   .dateblock .num{font-size:50px}
   .dateblock .side{font-size:12px;letter-spacing:.24em}
   .venue{font-size:30px}
-  .dinner{font-size:15px}
   .countdown{gap:6px}
   .cd b{font-size:24px}
   .ev-card{padding:16px 14px}
@@ -53,10 +52,10 @@
 
 /* ============ short screens: keep the envelope text clear of the tap hint ============ */
 @media (max-height:680px){
-  .env-text{top:61%}
-  .env-names{font-size:36px}
-  .env-tag{font-size:19px}
-  .env-from{margin-top:8px}
+  .env-text{top:60%;padding:11px 12px 10px}
+  .env-names{font-size:38px}
+  .env-tag{font-size:16px}
+  .env-from{margin-top:6px;font-size:9.5px}
   .hint{bottom:calc(14px + env(safe-area-inset-bottom));font-size:17px}
   .hint .fing{font-size:20px}
   .flap-wrap .wax{width:min(26vw,104px);height:min(26vw,104px)}

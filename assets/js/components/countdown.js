@@ -19,7 +19,7 @@
     }
     function tick() {
       let d = target - Date.now();
-      if (d <= 0) { root.innerHTML = '<div class="cd-done">Alhamdulillah — the Nikah day is here!</div>'; clearInterval(timer); return; }
+      if (d <= 0) { root.innerHTML = '<div class="cd-done">Alhamdulillah — the day is here!</div>'; clearInterval(timer); return; }
       const days = Math.floor(d / 864e5); d -= days * 864e5;
       const h = Math.floor(d / 36e5); d -= h * 36e5;
       const m = Math.floor(d / 6e4); d -= m * 6e4;

@@ -10,14 +10,17 @@
 .pocket{position:absolute;inset:0;z-index:3;transition:transform 1.5s cubic-bezier(.6,0,.3,1);filter:drop-shadow(0 -3px 4px rgba(120,70,75,.25))}
 .pocket-in{position:absolute;inset:0;clip-path:polygon(0 36%,50% 58%,100% 36%,100% 100%,0 100%)}
 .pocket-in::before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.18),transparent 40%),linear-gradient(245deg,rgba(255,255,255,.12),transparent 40%),linear-gradient(0deg,rgba(150,90,95,.08),transparent 30%)}
-.env-text{position:absolute;left:0;right:0;top:64%;text-align:center;color:#a8848a;text-shadow:0 1px 0 rgba(255,255,255,.7),0 -1px 0 rgba(140,90,95,.25)}
-.env-to{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;margin-bottom:6px}
-.env-to span{font-style:normal;font-weight:600;color:#946f77}
-.env-names{font-family:'Pinyon Script',cursive;font-size:clamp(40px,11.5vw,54px);line-height:1.1;color:#9c7680}
-.env-tag{font-family:'Pinyon Script',cursive;font-size:clamp(20px,5.6vw,26px);line-height:1.2}
-.env-from{margin-top:14px;font-size:10px;letter-spacing:.28em;text-transform:uppercase}
-.env-from span{letter-spacing:.12em}
-.flap-wrap{position:absolute;left:0;right:0;top:0;height:60%;z-index:4;transform-origin:50% 0;transform-style:preserve-3d;transition:transform 1.3s cubic-bezier(.45,.05,.3,1)}
+/* envelope front: names on a soft ivory label so they read clearly over the embossed paper */
+.env-text{position:absolute;left:50%;top:63%;transform:translateX(-50%);width:min(86%,380px);padding:16px 16px 14px;text-align:center;border-radius:16px;
+  color:#6f4b55;background:linear-gradient(180deg,rgba(255,252,251,.86),rgba(253,245,245,.78));
+  box-shadow:0 10px 26px -14px rgba(120,70,80,.5),inset 0 0 0 1px rgba(168,132,138,.32);text-shadow:0 1px 0 rgba(255,255,255,.9)}
+.env-text::before{content:"";position:absolute;inset:5px;border:1px solid rgba(168,132,138,.25);border-radius:12px;pointer-events:none}
+.env-to{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;color:#7d5c66;margin-bottom:4px}
+.env-to span{font-style:normal;font-weight:600;color:#5e3c47}
+.env-names{font-family:'Pinyon Script',cursive;font-size:clamp(42px,12vw,56px);line-height:1.08;color:#5e3c47}
+.env-tag{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(17px,4.8vw,20px);line-height:1.3;color:#7d5c66;margin-top:2px}
+.env-from{margin-top:10px;font-size:10.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#7d5c66}
+.env-from span{letter-spacing:.1em;color:#5e3c47}.flap-wrap{position:absolute;left:0;right:0;top:0;height:60%;z-index:4;transform-origin:50% 0;transform-style:preserve-3d;transition:transform 1.3s cubic-bezier(.45,.05,.3,1)}
 .flap-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
 .flap-face.front{filter:drop-shadow(0 5px 6px rgba(120,70,75,.35))}
 .flap-face.back{transform:rotateX(180deg)}
@@ -69,10 +72,10 @@
 @keyframes bandR{0%{transform:none}35%{transform:translate(6%,4%) rotate(6deg)}100%{transform:translate(80%,220%) rotate(38deg);opacity:0}}
 
 /* hints */
-.hint{position:absolute;left:0;right:0;bottom:calc(40px + env(safe-area-inset-bottom));z-index:6;text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;color:#8f6f76;text-shadow:0 1px 0 rgba(255,255,255,.8);pointer-events:none;transition:opacity .4s;animation:hintP 2s ease-in-out infinite}
+.hint{position:absolute;left:0;right:0;bottom:calc(40px + env(safe-area-inset-bottom));z-index:6;text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:21px;color:#6f4b55;text-shadow:0 1px 0 rgba(255,255,255,.85);pointer-events:none;transition:opacity .4s;animation:hintP 2s ease-in-out infinite}
 .hint .fing{display:block;font-style:normal;font-size:26px;animation:tapf 1.4s ease-in-out infinite}
 @keyframes tapf{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-6px) scale(1.06)}}
 @keyframes hintP{0%,100%{opacity:.65}50%{opacity:1}}
 #intro.press .hint.seal-hint{opacity:0;animation:none}
-.intro-top{position:absolute;left:0;right:0;top:calc(30px + env(safe-area-inset-top));z-index:6;text-align:center;font-size:10.5px;letter-spacing:.42em;text-transform:uppercase;color:#a8848a;pointer-events:none;transition:opacity .4s}
+.intro-top{position:absolute;left:0;right:0;top:calc(30px + env(safe-area-inset-top));z-index:6;text-align:center;font-size:10.5px;font-weight:600;letter-spacing:.42em;text-transform:uppercase;color:#7d5c66;text-shadow:0 1px 0 rgba(255,255,255,.7);pointer-events:none;transition:opacity .4s}
 #intro.press .intro-top{opacity:0}
