@@ -68,11 +68,19 @@
 #invite .dateblock{margin-top:8px}
 #invite .when{margin-top:8px}
 #invite .venue{margin-top:2px}
-.rec-ar{font-size:clamp(36px,10vw,46px);color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.3)}
 .rec-name{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;line-height:1.4;color:#efe6f4;margin-top:2px}
 .rec-hijri{letter-spacing:.14em;text-transform:none;font-style:italic;font-family:'Cormorant Garamond',serif;font-size:15px}
 
-/* ============ "Haza min fazli Rabbi" calligraphy ============ */
-.calli{font-family:'Aref Ruqaa','Amiri',serif;font-weight:700;direction:rtl;font-size:clamp(40px,11.5vw,54px);line-height:1.35;color:var(--plum)}
-#invite .calli{text-shadow:0 0 14px rgba(255,255,255,.95),0 1px 0 #fff,0 3px 8px rgba(91,74,93,.18)}
-.calli-tr{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:#6e5d70;margin-top:-2px}.rec-box .calli{color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.35),0 0 1px rgba(255,255,255,.6)}
+/* ============ "Haza min fazli Rabbi" calligraphy: flowing Nastaliq, gilded ============ */
+.calli{display:inline-block;font-family:'Noto Nastaliq Urdu','Amiri',serif;font-weight:700;direction:rtl;font-size:clamp(34px,10vw,46px);
+  line-height:2.1;padding:0 .4em .05em;margin:-.42em auto -.5em;
+  background-image:linear-gradient(100deg,#5b3f57 0%,#8d5f79 20%,#c9939b 38%,#efc8b6 50%,#b07a8f 62%,#6c4766 80%,#5b3f57 100%);background-size:240% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 1px 0 rgba(255,255,255,.95)) drop-shadow(0 5px 12px rgba(91,74,93,.22));animation:calliShine 9s ease-in-out infinite}
+@keyframes calliShine{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.rec-box .calli{background-image:linear-gradient(100deg,#cfa866 0%,#f3dfb2 22%,#fff8e7 40%,#e2c38a 56%,#fbecc9 76%,#c99f5e 100%);
+  filter:drop-shadow(0 2px 2px rgba(40,20,40,.45)) drop-shadow(0 8px 16px rgba(0,0,0,.28))}
+/* ornament beneath the calligraphy */
+.calli-orn{display:block;width:210px;max-width:70%;height:22px;margin:2px auto 4px;color:#b07f93;overflow:visible}
+.rec-box .calli-orn{color:#e9d3a4;margin-bottom:8px}
+.calli-tr{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:#6e5d70}
